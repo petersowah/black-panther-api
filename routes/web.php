@@ -18,4 +18,8 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api/v1'], function() use ($router){
 	$router->get('characters', ['uses' => 'CharacterController@index']);
+	$router->post('characters', ['uses' => 'CharacterController@create']);
+	$router->get('characters/{uuid}', ['uses' => 'CharacterController@show']);
+	$router->put('characters/{uuid}', ['uses' => 'CharacterController@update']);
+	$router->delete('characters/{uuid}', ['uses' => 'CharacterController@destroy']);
 });

@@ -15,15 +15,16 @@ class CreateCharactersTable extends Migration
     {
         Schema::create('characters', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('uuid');
+            $table->uuid('uuid')->unique();
             $table->string('name');
             $table->string('occupation');
+            $table->string('alias');
             $table->string('place_of_birth');
             $table->string('gender');
             $table->text('abilities');
             $table->string('played_by');
             $table->string('image');
-            $table->timestamps();
+            $table->text('bio');
         });
     }
 

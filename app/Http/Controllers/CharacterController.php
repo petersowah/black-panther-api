@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Character;
+use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
+use Illuminate\Support\Facades\DB;
 
 class CharacterController extends Controller
 {
@@ -21,19 +25,38 @@ class CharacterController extends Controller
 		return response()->json(['data' => Character::all()]);
 	}
 
-	public function create(){
-		
+	public function create(Request $request){
+		$uuid = Uuid::uuid4();
+
+		$this->validate($request, [
+			'name' => 'required',
+			'occupation' => 'required',
+			'gender' => 'required',
+			'place_of_birth' => 'required',
+			'played_by' => 'required',
+//			'image' => 'required',
+			'bio' => 'required',
+		]);
+		$character = Character::create($request->all() + [ 'uuid' => $uuid->toString() ]);
+
+		return response()->json(['data' => $character, 'status' => 201]);
 	}
 
-	public function edit(){
+	public function show($uuid){
+		$character = Character::where('uuid', $uuid)->firstOrFail();
 
+		return response()->json(['data' => $character ]);
 	}
 
-	public function show(){
+	public function update($uuid, Request $request){
+		$character = Character::findOrFail($uuid);
 
+		$character->update($request->all());
 	}
 
-	public function destroy(){
+	public function destroy($uuid){
+		Character::where('uuid', $uuid)->firstOrFail()->delete();
 
+		return response('Deleted Character Successfully', 200);
 	}
 }

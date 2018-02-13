@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Character extends Model
 {
+	public $timestamps = false;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -13,7 +14,7 @@ class Character extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'occupation', 'place_of_birth', 'gender', 'abilities', 'played_by', 'image'
+		'uuid', 'name', 'occupation', 'place_of_birth', 'gender', 'abilities', 'played_by', 'image'
 	];
 
 	/**
