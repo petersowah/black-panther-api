@@ -14,7 +14,7 @@ class Character extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'uuid', 'name', 'occupation', 'place_of_birth', 'gender', 'abilities', 'played_by', 'image'
+		'uuid', 'name', 'occupation', 'place_of_birth', 'gender', 'abilities', 'played_by', 'image_path'
 	];
 
 	/**

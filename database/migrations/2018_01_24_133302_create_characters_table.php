@@ -23,7 +23,7 @@ class CreateCharactersTable extends Migration
             $table->string('gender');
             $table->text('abilities');
             $table->string('played_by');
-            $table->string('image');
+            $table->string('image_path');
             $table->text('bio');
         });
     }

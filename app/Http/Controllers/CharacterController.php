@@ -6,7 +6,8 @@ use App\Character;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
-use Illuminate\Support\Facades\DB;
+
+use Cloudinary\Uploader;
 
 class CharacterController extends Controller
 {
@@ -34,10 +35,15 @@ class CharacterController extends Controller
 			'gender' => 'required',
 			'place_of_birth' => 'required',
 			'played_by' => 'required',
-//			'image' => 'required',
+			'image_path' => 'required',
 			'bio' => 'required',
 		]);
-		$character = Character::create($request->all() + [ 'uuid' => $uuid->toString() ]);
+
+		$extension = $request->image_path->extension();
+
+		$img_path = Uploader::upload($request->file('image_path')->getRealPath(), ['public_id' => strtolower($request->input('name'). '.' .$extension), 'folder' => 'black-panther']);
+
+		$character = Character::create(array_merge($request->all(), [ 'uuid' => $uuid->toString(), 'image_path' => $img_path['secure_url'] ]));
 
 		return response()->json(['data' => $character, 'status' => 201]);
 	}
