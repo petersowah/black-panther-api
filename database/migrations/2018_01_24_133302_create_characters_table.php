@@ -17,14 +17,14 @@ class CreateCharactersTable extends Migration
             $table->increments('id');
             $table->uuid('uuid')->unique();
             $table->string('name');
-            $table->string('occupation');
-            $table->string('alias');
-            $table->string('place_of_birth');
-            $table->string('gender');
+	        $table->string('alias');
+	        $table->string('occupation');
+	        $table->string('gender');
+	        $table->string('place_of_birth');
+	        $table->text('bio');
             $table->text('abilities');
             $table->string('played_by');
             $table->string('image_path');
-            $table->text('bio');
         });
     }
 

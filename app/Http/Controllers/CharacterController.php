@@ -39,6 +39,8 @@ class CharacterController extends Controller
 			'bio' => 'required',
 		]);
 
+//		dd($request->all());
+
 		$extension = $request->image_path->extension();
 
 		$img_path = Uploader::upload($request->file('image_path')->getRealPath(), ['public_id' => strtolower($request->input('name'). '.' .$extension), 'folder' => 'black-panther']);
