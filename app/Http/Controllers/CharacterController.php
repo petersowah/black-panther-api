@@ -56,10 +56,14 @@ class CharacterController extends Controller
 		return response()->json(['data' => $character ]);
 	}
 
-	public function update($uuid, Request $request){
-		$character = Character::findOrFail($uuid);
+	public function update(Request $request, $uuid){
+		$character = Character::where('uuid', $uuid)->firstOrFail();
+
+//		dd($request->all());
 
 		$character->update($request->all());
+
+		return response()->json(['data' => $character, 'status' => 200]);
 	}
 
 	public function destroy($uuid){
