@@ -43,9 +43,9 @@ class CharacterController extends Controller
 
 		$extension = $request->image_path->extension();
 
-		$img_path = Uploader::upload($request->file('image_path')->getRealPath(), ['public_id' => strtolower($request->input('name'). '.' .$extension), 'folder' => 'black-panther']);
+		$image = Uploader::upload($request->file('image_path')->getRealPath(), ['public_id' => strtolower($request->input('name'). '.' .$extension), 'folder' => 'black-panther']);
 
-		$character = Character::create(array_merge($request->all(), [ 'uuid' => $uuid->toString(), 'image_path' => $img_path['secure_url'] ]));
+		$character = Character::create(array_merge($request->all(), [ 'uuid' => $uuid->toString(), 'image_path' => $image['secure_url'] ]));
 
 		return response()->json(['data' => $character, 'status' => 201]);
 	}
@@ -71,5 +71,5 @@ class CharacterController extends Controller
 
 		return response('Character Squashed', 200);
 	}
-	
+
 }
