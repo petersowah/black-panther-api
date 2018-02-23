@@ -12,8 +12,7 @@
 */
 
 $router->get('/', function () use ($router) {
-//    return $router->app->version();
-	return 'Black Panther v1.0.0';
+	return 'Black Panther v1.0.0 - Wakanda Forever!';
 });
 
 $router->group(['prefix' => 'api/v1'], function() use ($router){

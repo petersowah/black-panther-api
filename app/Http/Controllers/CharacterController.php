@@ -30,7 +30,7 @@ class CharacterController extends Controller
 		$uuid = Uuid::uuid4();
 
 		$this->validate($request, [
-			'name' => 'required',
+			'name' => 'required|unique:characters',
 			'occupation' => 'required',
 			'gender' => 'required',
 			'place_of_birth' => 'required',
@@ -53,7 +53,7 @@ class CharacterController extends Controller
 	public function show($uuid){
 		$character = Character::where('uuid', $uuid)->firstOrFail();
 
-		return response()->json(['data' => $character ]);
+		return response()->json(['data' => $character, 'status' => 200]);
 	}
 
 	public function update(Request $request, $uuid){
@@ -69,6 +69,7 @@ class CharacterController extends Controller
 	public function destroy($uuid){
 		Character::where('uuid', $uuid)->firstOrFail()->delete();
 
-		return response('Deleted Character Successfully', 200);
+		return response('Character Squashed', 200);
 	}
+	
 }
